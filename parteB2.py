@@ -44,7 +44,7 @@ class PredictorVentas:
         if not self.entrenado:
             return 0
         siguiente_paso = np.array([[n_historicos]])
-        prediccion = self.modelo.predict(siguiente_paso)
+        prediccion = self.modelo.predict(siguiente_paso)[0]
         return max(0, int(round(prediccion)))
 
 class GestionInventario:
@@ -69,7 +69,7 @@ class GestionInventario:
         prod = self.productos[id_prod]
         if prod.stock >= cantidad:
             prod.stock -= cantidad
-            # Guardamos datos para análisis posterior [1]
+            # Aca guardamos datos para análisis posterior [1]
             venta = {
                 'fecha': datetime.date.today(),
                 'id_prod': id_prod,
@@ -125,7 +125,7 @@ class GestionInventario:
         else:
             print("El modelo aún no ha sido entrenado.")
 
-# --- INTERFAZ DE MENÚ ---
+# --- INTERFAZ MENÚ ---
 def menu():
     sistema = GestionInventario()
     
